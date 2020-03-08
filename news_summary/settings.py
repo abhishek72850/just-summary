@@ -24,7 +24,7 @@ SECRET_KEY = 's5j8bkgk#s%^77rs9g#6c_$0i_nik(4huxu0_df2t0gcczq@^g'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['planetics.herokuapp.com']
+ALLOWED_HOSTS = ['just-summary.herokuapp.com']
 
 # Application definition
 
@@ -70,11 +70,11 @@ CACHES = {
 }
 
 CORS_ORIGIN_WHITELIST = [
-    'https://planetics.herokuapp.com',
-    'http://planetics.herokuapp.com',
+    'https://just-summary.herokuapp.com',
+    'http://just-summary.herokuapp.com',
 ]
 
-ROOT_URLCONF = 'planetics.urls'
+ROOT_URLCONF = 'news_summary.urls'
 
 TEMPLATES = [
     {
@@ -92,7 +92,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'planetics.wsgi.application'
+WSGI_APPLICATION = 'news_summary.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
