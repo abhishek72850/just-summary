@@ -1,0 +1,263 @@
+{% extends 'dashboard/base.html' %}
+
+
+{% block body%}
+
+<section>
+	<div class="search_panel" id="search_panel_pin">
+		<div class="search_form">
+			<form id="search_form">
+				<div>
+					<input type="text" name="search" required>
+					<button type="submit">
+						<span id="search_text">Search</span>
+						<img src="/static/images/ripple.gif" id="loader">
+					</button>
+				</div>
+				<div class="social_select">
+					<label for="social_network">Select Platform:</label>
+					<select name="social_network" id="social_network">
+						<option value="all" selected>ALL</option>
+						<option value="facebook">Facebook</option>
+						<option value="twitter">Twitter</option>
+						<option value="youtube">Youtube</option>
+						<option value="instagram">Instagram</option>
+					</select>
+				</div>
+			</form>
+		</div>
+		<div class="result_nav_panel">
+			<div>
+				<span>100 Results found</span>
+			</div>
+			<div>
+				<div class="result_page_nav">
+					<span id="prev_page">Prev</span>
+					<span id="page_counter">1</span>
+					<span id="next_page">Next</span>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="result_panel">
+
+		<!-- <div class="card">
+			<div>
+				<div class="source">
+					<span>Source</span>
+					<img src="#">
+				</div>
+				<div class="detail">
+					<div>
+						<span>Published On</span>
+					</div>
+					<div>
+						<h2>Title</h2>
+					</div>
+					<div>
+						<span>Link:</span>
+						<a href="#">URL</a>
+					</div>
+					<div>
+						<p>Description</p>
+					</div>
+				</div>
+			</div>
+			<div class="operate">
+				<div>
+					<button>Analyze</button>
+				</div>
+			</div>
+		</div> -->
+	</div>
+</section>
+<div class="analysis_cont">
+	<div class="analysis_loader">
+		<img src="/static/images/ripple.gif">
+	</div>
+</div> 
+
+<script id="analysis_template" type="text/x-jsrender">
+	<div class="analysis_details">
+		<div>
+			<div class="source">
+				<span>Source</span>
+				<img src="[%:source_img%]" alt="image">
+			</div>
+			<div class="detail">
+				<div>
+					<span >Published On : [%:publish%]</span>
+				</div>
+				<div>
+					<h2>[%:title%]</h2>
+				</div>
+				<div>
+					<span>Link:</span>
+					<a href="[%:link%]">[%:link%]</a>
+				</div>
+				<div class="sentiment">
+					<span>Overall document sentiment: [%:sentiment onerror='None'%]</span>
+				</div>
+				<div class="summary">
+					<p>[%:summary onerror='No Summary'%]</p>
+				</div>
+				<div class="analysis">
+					[%for keywords onError=""%]
+						<div class="keywords
+							[%if sentiment.label == 'negative'%]
+								negative_keyword
+							[%else sentiment.label == 'positive'%]
+								positive_keyword
+							[%/if%]
+						">
+							<span>[%:text%]</span>
+							<span>[%:sentiment.label%]</span>
+							<span>[%:relevance%]</span>
+						</div>
+						[%else%]
+							<span>No keywords found</span>
+					[%/for%]
+					
+						
+					<div class="tones">
+						[%for sentences_tones onError=""%]
+							[%if tones.length > 0%]
+								<div>
+									<p>[%:text%]</p>
+									<span>[%:tones[0].tone_name%]</span>
+								</div>
+							[%/if%]
+							[%else%]
+								<span>No Tones found</span>
+						[%/for%]
+					</div>
+				</div>
+				<div class="text_content">
+					<p>[%:text%]</p>
+				</div>
+			</div>
+			<div class="graphics">
+				<div>
+					<img src="[%:images%]" alt="image">
+					<div class="tag_list">
+						[%for visuals onError=""%]
+							<span>
+								<span>[%:class%]</span>
+								<span>[%:score%]</span>
+							</span>
+							[%else%]
+								<span>No graphics found</span>
+						[%/for%]
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="operate">
+		<div>
+			<button id="analyse" data-type="dialog">Close</button>
+		</div>
+	</div>
+</script>
+
+<script id="social_template" type="text/x-jsrender">
+
+	<div class="card">
+		<div>
+			<div class="source">
+				<span>Source</span>
+				<img src="http://www.[%:network%].com/favicon.ico" alt="[%:network%]">
+			</div>
+			<div class="detail">
+				<div>
+					<span >Published On : [%:posted%]</span>
+				</div>
+				<div>
+					<h2>
+					[%if network == "facebook"%]
+						[%:urls[0].text%]
+					[%else%]
+						[%:user.name%]
+					[%/if%]
+					</h2>
+				</div>
+				<div>
+					<span>Link:</span>
+					<a href="[%:url%]">[%:url%]</a>
+				</div>
+				<div>
+					<p>[%:text%]</p>
+				</div>
+			</div>
+		</div>
+		<div class="operate">
+			<div>
+				<button
+					id="analyse"
+					data-type="social"
+					data-imgSourceSrc="http://www.[%:network%].com/favicon.ico"
+					data-imgAlt="[%:network%]"
+					data-imgArticle=""
+					data-publishAt="[%:posted%]"
+					data-title="[%if network == "facebook"%]
+									[%:urls[0].text%]
+								[%else%]
+									[%:user.name%]
+								[%/if%]"
+					data-url="[%:url%]"
+					data-text="[%:text%]"
+					>Analyze</button>
+			</div>
+		</div>
+	</div>
+</script>
+
+<script id="news_template" type="text/x-jsrender">
+
+	<div class="card">
+		<div>
+			<div class="source">
+				<span>Source</span>
+
+				<img src="[%:provider[0].image.thumbnail.contentUrl.split('&')[0] onerror=''%]" alt="[%:provider[0].name%]">
+			</div>
+			<div class="detail">
+				<div>
+					<span >Published On : [%:datePublished%]</span>
+				</div>
+				<div>
+					<h2>[%:name%]</h2>
+				</div>
+				<div>
+					<span>Link:</span>
+					<a href="[%:url%]">[%:url%]</a>
+				</div>
+				<div>
+					<p>[%:description%]</p>
+				</div>
+			</div>
+			<div class="graphics">
+				<div>
+					<img src="[%:image.thumbnail.contentUrl.split('&')[0] onerror=''%]" alt="">
+				</div>
+			</div>
+		</div>
+		<div class="operate">
+			<div>
+				<button 
+					id="analyse"
+					data-type="news"
+					data-imgSourceSrc="[%:provider[0].image.thumbnail.contentUrl.split('&')[0] onerror=''%]"
+					data-imgAlt="[%:provider[0].name%]"
+					data-imgArticle="[%:image.thumbnail.contentUrl.split('&')[0] onerror=''%]"
+					data-publishAt="[%:datePublished%]"
+					data-title="[%:name%]"
+					data-url="[%:url%]"
+					data-text="[%:description%]"
+					>Analyze</button>
+			</div>
+		</div>
+	</div>
+</script>
+
+{% endblock %}
