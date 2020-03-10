@@ -1,12 +1,13 @@
 $(function(){
-	
+	$('.analysis_loader').hide();
+
 	$('.form_cont>form').on('submit',function(e){
 
 		e.preventDefault();
 		$('.analysis_loader').show();
 
 		var object = {
-			url:"https://planetics.herokuapp.com/api/fetch/summary/",
+			url:"https://just-summary.herokuapp.com/api/fetch/summary/",
 			data:{
 				'content' : this.content.value
 			},
