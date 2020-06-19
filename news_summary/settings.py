@@ -24,7 +24,7 @@ SECRET_KEY = 's5j8bkgk#s%^77rs9g#6c_$0i_nik(4huxu0_df2t0gcczq@^g'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['just-summary.herokuapp.com','*.newssummarization.com']
+ALLOWED_HOSTS = ['just-summary.herokuapp.com','ai3.newssummarization.com']
 
 # Application definition
 
