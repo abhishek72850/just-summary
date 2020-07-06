@@ -24,7 +24,7 @@ SECRET_KEY = 's5j8bkgk#s%^77rs9g#6c_$0i_nik(4huxu0_df2t0gcczq@^g'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['just-summary.herokuapp.com','ai.newssummarization.com', 'www.newssummarization.com']
+ALLOWED_HOSTS = ['just-summary.herokuapp.com','ai.newssummarization.com', 'www.newssummarization.com','ai.batteryarmor.us']
 
 # Application definition
 
@@ -74,6 +74,7 @@ CORS_ORIGIN_WHITELIST = [
     'http://just-summary.herokuapp.com',
     'http://ai.newssummarization.com',
     'http://www.newssummarization.com',
+    'http://ai.batteryarmor.us',
 ]
 
 ROOT_URLCONF = 'news_summary.urls'
