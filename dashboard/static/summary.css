@@ -51,6 +51,7 @@
 
 .summary_cont>div:last-child{
 	height: 95%;
+	overflow-y: scroll;
 }
 .summary_para{
 	padding: .5em;
